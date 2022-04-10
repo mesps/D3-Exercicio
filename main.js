@@ -1,7 +1,14 @@
+// Variables and const
+const urlData = 'https://raw.githubusercontent.com/nivan/testPython/main/ListaParlamentarEmExercicio.csv'
+
+// Functions
 async function readCSV () {
+  const dataTable = []
   await d3.csv(urlData, (data) => {
     dataTable.push(data)
   })
+
+  return dataTable
 }
 
 function formatData (data) {
@@ -22,18 +29,30 @@ function formatData (data) {
     }
   })
 
-  console.log(formattedData)
-  console.warn(Object.keys(formattedData).length)
+  return formattedData
 }
 
-const dataTable = []
-const urlData = 'https://raw.githubusercontent.com/nivan/testPython/main/ListaParlamentarEmExercicio.csv'
+function separetDataByParty (data) {
+  const politicalPartyList = {}
+  const linesOfTable = Object.values(data)
+  const partyKey = 'ListaParlamentarEmExercicio.Parlamentares.Parlamentar.IdentificacaoParlamentar.SiglaPartidoParlamentar'
 
+  for (const politian of linesOfTable) {
+    const party = politian[partyKey]
+    if (!politicalPartyList[party]) politicalPartyList[party] = [politian]
+    else politicalPartyList[party].push(politian)
+  }
+
+  return politicalPartyList
+}
+
+// Main
 async function main () {
-  await readCSV()
+  const dataTable = await readCSV()
+  const formattedData = formatData(dataTable)
 
-  const object = {}
-  formatData(dataTable)
+  const politicalPartyList = separetDataByParty(formattedData)
+  console.log(politicalPartyList)
 }
 
 main()
