@@ -46,13 +46,59 @@ function separetDataByParty (data) {
   return politicalPartyList
 }
 
+function initializeSVG (height, width) {
+  const svg = d3.select("body")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  
+  return svg
+}
+
+function drawCircles (svg, politicalPartyList) {
+  svg.append("text")
+    .attr("x", 158)
+    .attr("y", 175)
+    .style("font-size", '3rem')
+    .style("font-weight", 'bold')
+    .style("font-family", 'sans-serif')
+    .text(81)
+
+  for (key in politicalPartyList) {
+    // first draw group
+    svg.append("g")
+      .attr("id", key)
+      .style('fill', colors[key])
+
+    // then draw circles
+    const politians = politicalPartyList[key]
+
+    for (index in politians) {
+      const pos = positions[key][index]
+      const politian = politians[index]
+
+      svg.select(`#${key}`)
+        .append("circle")
+        .style('stroke-width', 0)
+        .style('stroke', '#000')
+        .style("r", 8)
+        .style("cx", pos.cx)
+        .style("cy", pos.cy)
+    }
+  }
+}
+
 // Main
 async function main () {
+  const svg = initializeSVG(600, 600)
+
   const dataTable = await readCSV()
   const formattedData = formatData(dataTable)
 
   const politicalPartyList = separetDataByParty(formattedData)
   console.log(politicalPartyList)
+
+  drawCircles(svg, politicalPartyList)
 }
 
 main()
@@ -66,21 +112,22 @@ const colors = {
   PSB: '#FFCC00',
   PDT: '#FF0000',
   REDE: '#379E8D',
-  Cidadania: '#EC008C',
+  CIDADANIA: '#EC008C',
   PV: '#006600',
   Solidariedade: '#FF9C2B',
   AVANTE: '#ED5F36',
   PSDB: '#0080FF',
   MDB: '#30914D',
-  PODE: '#2DA933',
+  PODEMOS: '#2DA933',
   Independent: '#DDDDDD',
   NOVO: '#FF4D00',
   PROS: '#FF5460',
   PSD: '#FFA500',
-  UNIAO: '#254AA5',
+  DEM: '#254AA5',
+  PSL: '#F06000',
   PL: '#0F0073',
   PP: '#7DC9FF',
-  Republicanos: '#005DAA',
+  REPUBLICANOS: '#005DAA',
   PTB: '#7B7B7B',
   PSC: '#009118',
   Patriota: '#00A29B'
@@ -140,7 +187,7 @@ const positions = {
       cy: "147.74"
     }
   ],
-  Cidadania: [
+  CIDADANIA: [
     {
       cx: "46.00",
       cy: "124.61"
@@ -253,7 +300,15 @@ const positions = {
       cy: "16.91"
     }
   ],
-  PODE: [
+  PODEMOS: [
+    {
+      cx: "204.30",
+      cy: "37.05"
+    },
+    {
+      cx: "205.02",
+      cy: "16.91"
+    },
     {
       cx: "167.95",
       cy: "75.69"
@@ -281,22 +336,22 @@ const positions = {
     {
       cx: "192.05",
       cy: "75.69"
-    },
-    {
-      cx: "205.02",
-      cy: "16.91"
     }
   ],
   Independent: [],
   NOVO: [],
   PROS: [
     {
-      cx: "204.30",
-      cy: "37.05"
+      cx: "258.64",
+      cy: "147.74"
     },
     {
-      cx: "204.74",
-      cy: "98.68"
+      cx: "280.12",
+      cy: "148.36"
+    },
+    {
+      cx: "245.84",
+      cy: "126.24"
     }
   ],
   PSD: [
@@ -333,8 +388,8 @@ const positions = {
       cy: "91.88"
     },
     {
-      cx: "227.34",
-      cy: "109.40"
+      cx: "204.74",
+      cy: "98.68"
     },
     {
       cx: "274.38",
@@ -345,7 +400,7 @@ const positions = {
       cy: "66.67"
     }  
   ],
-  UNIAO: [
+  DEM: [
     {
       cx: "260.83",
       cy: "84.65"
@@ -355,24 +410,22 @@ const positions = {
       cy: "60.53"
     },
     {
-      cx: "255.67",
-      cy: "107.21"
+      cx: "310.61",
+      cy: "79.18"
     },
     {
       cx: "288.17",
       cy: "83.44"
+    }
+  ],
+  PSL: [
+    {
+      cx: "227.34",
+      cy: "109.40"
     },
     {
-      cx: "245.84",
-      cy: "126.24"
-    },
-    {
-      cx: "278.23",
-      cy: "102.70"
-    },
-    {
-      cx: "310.61",
-      cy: "79.18"
+      cx: "255.67",
+      cy: "107.21"
     }
   ],
   PL: [
@@ -397,8 +450,8 @@ const positions = {
       cy: "124.61"
     },
     {
-      cx: "258.64",
-      cy: "147.74"
+      cx: "278.23",
+      cy: "102.70"
     },
     {
       cx: "334.83",
@@ -439,7 +492,7 @@ const positions = {
       cy: "172.01"
     }
   ],
-  Republicanos: [
+  REPUBLICANOS: [
     {
       cx: "344.81",
       cy: "172.01"
