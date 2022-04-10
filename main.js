@@ -1,5 +1,5 @@
-function readCSV () {
-  d3.csv(urlData, (data) => {
+async function readCSV () {
+  await d3.csv(urlData, (data) => {
     dataTable.push(data)
   })
 }
@@ -32,10 +32,8 @@ const urlData = 'https://raw.githubusercontent.com/nivan/testPython/main/ListaPa
 async function main () {
   await readCSV()
 
-  setTimeout(async () => {
-    const object = {}
-    formatData(dataTable)
-  }, 1000)
+  const object = {}
+  formatData(dataTable)
 }
 
 main()
