@@ -57,7 +57,7 @@ function initializeSVG (height, width) {
 
 function drawCircles (svg, politicalPartyList) {
   svg.append("text")
-    .attr("x", 158)
+    .attr("x", 152)
     .attr("y", 175)
     .style("font-size", '3rem')
     .style("font-weight", 'bold')
@@ -90,6 +90,14 @@ function drawCircles (svg, politicalPartyList) {
         })
         .on("mouseout",function(){
             d3.select(this).style("stroke-width", 0)
+        })
+        .on("click", (d) => {
+          const name = politian['ListaParlamentarEmExercicio.Parlamentares.Parlamentar.IdentificacaoParlamentar.NomeCompletoParlamentar']
+          const party = politian['ListaParlamentarEmExercicio.Parlamentares.Parlamentar.IdentificacaoParlamentar.SiglaPartidoParlamentar']
+          const imagemUrl = politian['ListaParlamentarEmExercicio.Parlamentares.Parlamentar.IdentificacaoParlamentar.UrlFotoParlamentar']
+          console.log('nome: ' + name)
+          console.log('partido: ' +  party)
+          console.log('imagem: ' + imagemUrl)
         })
     }
   }
