@@ -80,10 +80,17 @@ function drawCircles (svg, politicalPartyList) {
       svg.select(`#${key}`)
         .append("circle")
         .style('stroke-width', 0)
-        .style('stroke', '#000')
+        .style('stroke', 'black')
         .style("r", 8)
         .style("cx", pos.cx)
         .style("cy", pos.cy)
+        .attr("id", politian['ListaParlamentarEmExercicio.Parlamentares.Parlamentar.IdentificacaoParlamentar.CodigoParlamentar'])
+        .on("mouseover",function(d){
+          d3.select(this).style("stroke-width", 1)
+        })
+        .on("mouseout",function(){
+            d3.select(this).style("stroke-width", 0)
+        })
     }
   }
 }
@@ -110,7 +117,7 @@ const colors = {
   PCdoB: '#A30000',
   PT: '#CC0000',
   PSB: '#FFCC00',
-  PDT: '#FF0000',
+  PDT: '#A764FF',
   REDE: '#379E8D',
   CIDADANIA: '#EC008C',
   PV: '#006600',
@@ -118,14 +125,14 @@ const colors = {
   AVANTE: '#ED5F36',
   PSDB: '#0080FF',
   MDB: '#30914D',
-  PODEMOS: '#2DA933',
+  PODEMOS: '#082AD5',
   Independent: '#DDDDDD',
   NOVO: '#FF4D00',
   PROS: '#FF5460',
   PSD: '#FFA500',
   DEM: '#254AA5',
   PSL: '#F06000',
-  PL: '#0F0073',
+  PL: '#2DA933',
   PP: '#7DC9FF',
   REPUBLICANOS: '#005DAA',
   PTB: '#7B7B7B',
@@ -177,14 +184,14 @@ const positions = {
       cy: "148.36"
     },
     {
-      cx: "25.17",
-      cy: "122.97"
+      cx: "101.36",
+      cy: "147.74"
     }
   ],
   REDE: [
     {
-      cx: "101.36",
-      cy: "147.74"
+      cx: "25.17",
+      cy: "122.97"
     }
   ],
   CIDADANIA: [
@@ -346,8 +353,8 @@ const positions = {
       cy: "147.74"
     },
     {
-      cx: "280.12",
-      cy: "148.36"
+      cx: "264.62",
+      cy: "172.02"
     },
     {
       cx: "245.84",
@@ -388,22 +395,22 @@ const positions = {
       cy: "91.88"
     },
     {
-      cx: "204.74",
-      cy: "98.68"
+      cx: "255.67",
+      cy: "107.21"
     },
     {
       cx: "274.38",
       cy: "44.66"
     },
     {
-      cx: "270.45",
-      cy: "66.67"
+      cx: "260.83",
+      cy: "84.65"
     }  
   ],
   DEM: [
     {
-      cx: "260.83",
-      cy: "84.65"
+      cx: "270.45",
+      cy: "66.67"
     },
     {
       cx: "293.81",
@@ -424,8 +431,8 @@ const positions = {
       cy: "109.40"
     },
     {
-      cx: "255.67",
-      cy: "107.21"
+      cx: "204.74",
+      cy: "98.68"
     }
   ],
   PL: [
@@ -476,8 +483,8 @@ const positions = {
       cy: "147.11"
     },
     {
-      cx: "264.62",
-      cy: "172.02"
+      cx: "344.81",
+      cy: "172.01"
     },
     {
       cx: "284.70",
@@ -494,8 +501,8 @@ const positions = {
   ],
   REPUBLICANOS: [
     {
-      cx: "344.81",
-      cy: "172.01"
+      cx: "280.12",
+      cy: "148.36"
     }
   ],
   PTB: [],
