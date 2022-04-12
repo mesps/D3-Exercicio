@@ -172,7 +172,7 @@ function createHtml(name, party, imageUrl){
             padding: 10px;
           "
         >
-          Corrupto selecionado
+          Senador selecionado
         </span>
         <span
         id="close ${name}"
