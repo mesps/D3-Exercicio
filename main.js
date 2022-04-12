@@ -99,21 +99,28 @@ function drawCircles(svg, politicalPartyList) {
         .on('mouseout', function () {
           d3.select(this).style('stroke-width', 0);
         })
-        .on('click', (d) => {
+        .on('click', function (d) {
+          setTimeout(() => {
+            // To know wich circle was clicked
+            d3.select(this).style('stroke-width', 1);
+          }, 1);
+
           const name =
             politian[
               'ListaParlamentarEmExercicio.Parlamentares.Parlamentar.IdentificacaoParlamentar.NomeCompletoParlamentar'
             ];
+
           const party =
             politian[
               'ListaParlamentarEmExercicio.Parlamentares.Parlamentar.IdentificacaoParlamentar.SiglaPartidoParlamentar'
             ];
+
           const imageUrl =
             politian[
               'ListaParlamentarEmExercicio.Parlamentares.Parlamentar.IdentificacaoParlamentar.UrlFotoParlamentar'
             ];
 
-          let html = createHtml(name, party, imageUrl)
+          let html = createHtml(name, party, imageUrl);
 
           let div = document.createElement('div');
           div.innerHTML = html;
@@ -121,8 +128,12 @@ function drawCircles(svg, politicalPartyList) {
 
           var modal = document.getElementById(`myModal ${name}`);
           var span = document.getElementById(`close ${name}`);
-          span.onclick = function () {
+
+          span.onclick = () => {
             modal.style.display = 'none';
+            modal.remove();
+
+            d3.select(this).style('stroke-width', 0);
           };
         });
     }
